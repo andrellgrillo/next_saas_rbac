@@ -4,6 +4,7 @@ import fastifyCors from "@fastify/cors";
 import { jsonSchemaTransform, serializerCompiler, validatorCompiler, ZodTypeProvider } from "fastify-type-provider-zod";
 import { createAccount } from "./routes/auth/create-account";
 import fastifySwaggerUi from "@fastify/swagger-ui";
+import { authehticateWithPassword } from "./routes/auth/authenticate-with-password";
 
 const app = fastify().withTypeProvider<ZodTypeProvider>()
 
@@ -28,6 +29,7 @@ app.register(fastifySwaggerUi, {
 
 app.register(fastifyCors)
 
+app.register(authehticateWithPassword)
 app.register(createAccount)
 
 app.listen({ port: 3333 }).then(() => {
