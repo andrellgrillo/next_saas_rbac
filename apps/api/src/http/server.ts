@@ -1,5 +1,6 @@
 import { fastify } from "fastify";
 import fastifySwagger from "@fastify/swagger";
+import fastifyJwt from "@fastify/jwt";
 import fastifyCors from "@fastify/cors";
 import { jsonSchemaTransform, serializerCompiler, validatorCompiler, ZodTypeProvider } from "fastify-type-provider-zod";
 import { createAccount } from "./routes/auth/create-account";
@@ -27,6 +28,9 @@ app.register(fastifySwaggerUi, {
   routePrefix: '/docs'
 })
 
+app.register(fastifyJwt, {
+  secret: 'my-jwt-secret'
+})
 app.register(fastifyCors)
 
 app.register(authehticateWithPassword)

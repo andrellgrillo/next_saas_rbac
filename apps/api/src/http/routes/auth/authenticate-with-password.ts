@@ -33,8 +33,17 @@ export async function authehticateWithPassword(app: FastifyInstance) {
     if (!isPasswordValid) {
       return reply.status(400).send({ message: 'Invalid Credentials'})
     }
-
-    return 'Logged on !'
+    const token = await reply.jwtSign(
+      {
+        sub: userFromEmail.id
+      },
+      {
+        sign: {
+          expiresIn: '7d'
+        }
+      }
+    )
+    return reply.status(201).send({ token })
   }
 )
 }
