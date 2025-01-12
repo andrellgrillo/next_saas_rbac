@@ -7,7 +7,7 @@ import { BadRequestError } from "../_errors/bad-request-error";
 import { auth } from "@/http/middlewares/auth";
 
 export async function getProfile(app: FastifyInstance) {
-  app.withTypeProvider<ZodTypeProvider>().register(auth).get('/profile', 
+  app.withTypeProvider<ZodTypeProvider>().register(auth).get('/profile',
     {
       schema: {
         tags: ['auth'],
@@ -31,7 +31,7 @@ export async function getProfile(app: FastifyInstance) {
           id: true,
           name: true,
           email: true,
-          avatarurl: true,
+          avatarUrl: true,
         },
         where: {
           id: userId
