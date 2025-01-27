@@ -17,7 +17,7 @@ export async function shutdownOrganization(app: FastifyInstance) {
       '/organizations/:slug',
       {
         schema: {
-          tag: ['organizations'],
+          tags: ['organizations'],
           summary: 'Shutdown organization',
           security: [{ bearerAuth: [] }],
           params: z.object({

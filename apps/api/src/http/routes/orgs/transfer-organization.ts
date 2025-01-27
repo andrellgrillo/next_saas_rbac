@@ -18,7 +18,7 @@ export async function transferOrganization(app: FastifyInstance) {
       '/organizations/:slug/owner',
       {
         schema: {
-          tag: ['organizations'],
+          tags: ['organizations'],
           summary: 'Transfer organization ownership',
           security: [{ bearerAuth: [] }],
           params: z.object({

@@ -1,11 +1,10 @@
 import { roleSchema } from '@saas/auth'
-import { FastifyInstance } from 'fastify'
-import { ZodTypeProvider } from 'fastify-type-provider-zod'
+import type { FastifyInstance } from 'fastify'
+import type { ZodTypeProvider } from 'fastify-type-provider-zod'
 import { z } from 'zod'
 
+import { BadRequestError } from '@/http/routes/_errors/bad-request-error'
 import { prisma } from '@/lib/prisma'
-
-import { BadRequestError } from '../_errors/bad-request-error'
 
 export async function getInvite(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().get(
@@ -13,34 +12,35 @@ export async function getInvite(app: FastifyInstance) {
     {
       schema: {
         tags: ['invites'],
-        summary: 'Get a invite details',
+        summary: 'Get an invite',
         params: z.object({
           inviteId: z.string().uuid(),
         }),
-        response: z.object({
+        response: {
           200: z.object({
             invite: z.object({
               id: z.string().uuid(),
-              createdAt: z.date(),
               role: roleSchema,
-              email: z.string(),
+              email: z.string().email(),
+              createdAt: z.date(),
               organization: z.object({
                 name: z.string(),
               }),
               author: z
                 .object({
-                  name: z.string().nullable(),
                   id: z.string().uuid(),
-                  avatarurl: z.string().url().nullable(),
+                  name: z.string().nullable(),
+                  avatarUrl: z.string().url().nullable(),
                 })
                 .nullable(),
             }),
           }),
-        }),
+        },
       },
     },
     async (request) => {
       const { inviteId } = request.params
+
       const invite = await prisma.invite.findUnique({
         where: {
           id: inviteId,
@@ -66,7 +66,7 @@ export async function getInvite(app: FastifyInstance) {
       })
 
       if (!invite) {
-        throw new BadRequestError(`Invite not found`)
+        throw new BadRequestError('Invite not found')
       }
 
       return { invite }
