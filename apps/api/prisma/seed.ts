@@ -1,6 +1,6 @@
-import { hash } from 'bcryptjs'
 import { faker } from '@faker-js/faker'
 import { PrismaClient } from '@prisma/client'
+import { hash } from 'bcryptjs'
 
 const prisma = new PrismaClient()
 
@@ -13,8 +13,8 @@ async function seed() {
       name: 'John Doe',
       email: 'john@acme.com',
       avatarUrl: 'https://github.com/andrellgrillo.png',
-      passwordHash: await hash('123456789', 1)
-      },
+      passwordHash: await hash('123456789', 1),
+    },
   })
 
   const user2 = await prisma.user.create({
@@ -22,8 +22,8 @@ async function seed() {
       name: faker.person.fullName(),
       email: faker.internet.email(),
       avatarUrl: faker.image.avatarGitHub(),
-      passwordHash: await hash('123456789', 1)
-      },
+      passwordHash: await hash('123456789', 1),
+    },
   })
 
   const user3 = await prisma.user.create({
@@ -31,8 +31,8 @@ async function seed() {
       name: faker.person.fullName(),
       email: faker.internet.email(),
       avatarUrl: faker.image.avatarGitHub(),
-      passwordHash: await hash('123456789', 1)
-      },
+      passwordHash: await hash('123456789', 1),
+    },
   })
 
   await prisma.organization.create({
@@ -54,31 +54,31 @@ async function seed() {
               ownerId: faker.helpers.arrayElement([
                 user.id,
                 user2.id,
-                user3.id
+                user3.id,
               ]),
-            }
-          ]
-        }
+            },
+          ],
+        },
       },
       members: {
         createMany: {
-          data:[
+          data: [
             {
               userId: user.id,
-              role: 'ADMIN'
+              role: 'ADMIN',
             },
             {
               userId: user2.id,
-              role: 'MEMBER'
+              role: 'MEMBER',
             },
             {
               userId: user3.id,
-              role: 'MEMBER'
+              role: 'MEMBER',
             },
-          ]
-        }
-      }
-    }
+          ],
+        },
+      },
+    },
   })
 
   await prisma.organization.create({
@@ -98,7 +98,7 @@ async function seed() {
               ownerId: faker.helpers.arrayElement([
                 user.id,
                 user2.id,
-                user3.id
+                user3.id,
               ]),
             },
             {
@@ -109,7 +109,7 @@ async function seed() {
               ownerId: faker.helpers.arrayElement([
                 user.id,
                 user2.id,
-                user3.id
+                user3.id,
               ]),
             },
             {
@@ -120,31 +120,31 @@ async function seed() {
               ownerId: faker.helpers.arrayElement([
                 user.id,
                 user2.id,
-                user3.id
+                user3.id,
               ]),
             },
-          ]
-        }
+          ],
+        },
       },
       members: {
         createMany: {
-          data:[
+          data: [
             {
               userId: user.id,
-              role: 'MEMBER'
+              role: 'MEMBER',
             },
             {
               userId: user2.id,
-              role: 'ADMIN'
+              role: 'ADMIN',
             },
             {
               userId: user3.id,
-              role: 'MEMBER'
+              role: 'MEMBER',
             },
-          ]
-        }
-      }
-    }
+          ],
+        },
+      },
+    },
   })
 
   await prisma.organization.create({
@@ -164,7 +164,7 @@ async function seed() {
               ownerId: faker.helpers.arrayElement([
                 user.id,
                 user2.id,
-                user3.id
+                user3.id,
               ]),
             },
             {
@@ -175,7 +175,7 @@ async function seed() {
               ownerId: faker.helpers.arrayElement([
                 user.id,
                 user2.id,
-                user3.id
+                user3.id,
               ]),
             },
             {
@@ -186,31 +186,31 @@ async function seed() {
               ownerId: faker.helpers.arrayElement([
                 user.id,
                 user2.id,
-                user3.id
+                user3.id,
               ]),
             },
-          ]
-        }
+          ],
+        },
       },
       members: {
         createMany: {
-          data:[
+          data: [
             {
               userId: user.id,
-              role: 'BILLING'
+              role: 'BILLING',
             },
             {
               userId: user2.id,
-              role: 'ADMIN'
+              role: 'ADMIN',
             },
             {
               userId: user3.id,
-              role: 'MEMBER'
+              role: 'MEMBER',
             },
-          ]
-        }
-      }
-    }
+          ],
+        },
+      },
+    },
   })
 }
 
