@@ -22,5 +22,5 @@ export async function auth() {
     console.error(err)
   }
 
-  // redirect('/api/auth/sign-out')
+  redirect('/api/auth/sign-out')
 }
