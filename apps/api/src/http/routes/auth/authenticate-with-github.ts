@@ -1,7 +1,7 @@
 import { env } from '@saas/env'
 import { FastifyInstance } from 'fastify'
 import { ZodTypeProvider } from 'fastify-type-provider-zod'
-import z, { string } from 'zod'
+import z from 'zod'
 
 import { prisma } from '@/lib/prisma'
 
@@ -26,6 +26,7 @@ export async function authenticateWithGithub(app: FastifyInstance) {
     },
     async (request, reply) => {
       const { code } = request.body
+      // console.log(code)
 
       const githubOAuthURL = new URL(
         'https://github.com/login/oauth/access_token',
@@ -35,12 +36,13 @@ export async function authenticateWithGithub(app: FastifyInstance) {
         'client_secret',
         env.GITHUB_OAUTH_CLIENT_SECRET,
       )
+      githubOAuthURL.searchParams.set('code', code)
       githubOAuthURL.searchParams.set(
         'redirect_uri',
         env.GITHUB_OAUTH_CLIENT_REDIRECT_URI,
       )
-      githubOAuthURL.searchParams.set('code', code)
 
+      // console.log(githubOAuthURL)
       const githubAccessTokenResponse = await fetch(githubOAuthURL, {
         method: 'POST',
         headers: {
@@ -48,6 +50,7 @@ export async function authenticateWithGithub(app: FastifyInstance) {
         },
       })
       const githubAccessTokenData = await githubAccessTokenResponse.json()
+      // console.log(githubAccessTokenData)
 
       const { access_token: githubAccessToken } = z
         .object({

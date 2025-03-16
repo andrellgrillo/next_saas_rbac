@@ -20,5 +20,6 @@ export async function signInWithPassword({
       },
     })
     .json<signInWithPasswordResponse>()
+  // console.log(result)
   return result
 }

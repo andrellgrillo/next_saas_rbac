@@ -17,7 +17,7 @@ export default function ForgotPasswordPage() {
       </Button>
 
       <Button variant="link" className="w-full" size="sm" asChild>
-        <Link href="/auth/sign-in">Sign in instead0</Link>
+        <Link href="/auth/sign-in">Sign in instead</Link>
       </Button>
     </form>
   )
