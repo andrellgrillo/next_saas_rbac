@@ -16,9 +16,9 @@ const signUpSchema = z
     password: z
       .string()
       .min(6, { message: 'Password should have at least 6 characters.' }),
-    password_confirmatiion: z.string(),
+    password_confirmation: z.string(),
   })
-  .refine((data) => data.password === data.password_confirmatiion, {
+  .refine((data) => data.password === data.password_confirmation, {
     message: 'Password confirmation does not match.',
     path: ['password_confirmation'],
   })
@@ -48,5 +48,5 @@ export async function signUpAction(data: FormData) {
     }
   }
 
-  redirect('/')
+  redirect('/auth/sign-in')
 }
