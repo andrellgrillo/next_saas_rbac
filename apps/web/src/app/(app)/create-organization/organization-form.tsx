@@ -28,6 +28,16 @@ export function OrganizationForm() {
           </Alert>
         )}
 
+        {success === true && message && (
+          <Alert variant="success">
+            <AlertTriangle className="size-4" />
+            <AlertTitle>Success!</AlertTitle>
+            <AlertDescription>
+              <p>{message}</p>
+            </AlertDescription>
+          </Alert>
+        )}
+
         <div className="space-y-1">
           <Label htmlFor="name">Organization Name</Label>
           <Input name="name" id="name" />
